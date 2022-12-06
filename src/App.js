@@ -1,3 +1,4 @@
+
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Input from "./components/Input.js";
@@ -20,17 +21,16 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const add = records.findIndex(item => item.date === data.date);
-    if (records.length === 0) {
+    if (records.length === 0 || add === Number("-1")) {
       setRecords((prevRecords) => ([...prevRecords, data]));
     } else if (add !== Number("-1")) {
-      const refreshData = {date: data.date, km: Number(records[add].km) + Number(data.km)};
-      const newRecords = records.splice(add, 1, refreshData);
-      setRecords(newRecords);
-    } else if (add === Number("-1")) {
-      setRecords((prevRecords) => ([...prevRecords, data].sort(function(a, b){
-        return new Date(b.date) - new Date(a.date);
-      })));
+      const sss = {date: data.date, km: Number(data.km) + Number(records[add].km)}
+      setRecords(records.filter(item => item.date !== data.date))
+      setRecords((prevRecords) => ([...prevRecords, sss]));
     }
+      setRecords((prevRecords) => ([...prevRecords.sort(function(a, b){
+        return new Date(b.date) - new Date(a.date);
+      })]))
     e.target.reset();
   };
 
