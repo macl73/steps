@@ -24,13 +24,13 @@ function App() {
     if (records.length === 0 || add === Number("-1")) {
       setRecords((prevRecords) => ([...prevRecords, data]));
     } else if (add !== Number("-1")) {
-      const sss = {date: data.date, km: Number(data.km) + Number(records[add].km)}
+      const updatedData = {date: data.date, km: Number(data.km) + Number(records[add].km)}
       setRecords(records.filter(item => item.date !== data.date))
-      setRecords((prevRecords) => ([...prevRecords, sss]));
+      setRecords((prevRecords) => ([...prevRecords, updatedData]));
     }
       setRecords((prevRecords) => ([...prevRecords.sort(function(a, b){
         return new Date(b.date) - new Date(a.date);
-      })]))
+      })]));
     e.target.reset();
   };
 
